@@ -55,15 +55,12 @@ class AppDelegate: NSObject, UIApplicationDelegate{
     }
     
     // MARK: Data Processing
-
-
-    
     
     // Checks EEG buffer status and updates accordingly
     func buffer_filled(EEG : [Float]) -> Bool{
         // Not filled
         if(buffer.EEG.count < buffer.EEG_maxSamples){
-            buffer.EEG.append(EEG[0])
+            buffer.EEG.append(EEG)
             return false
         }
         // Filled
@@ -71,17 +68,40 @@ class AppDelegate: NSObject, UIApplicationDelegate{
             return true
         }
     }
+    
     // Checks band power buffer status and updates accordingly
-    func buffer_filled(bandPower : [Float]) -> Bool{
-        // Not filled
-        if(buffer.bP_alpha.count < buffer.bP_maxSamples){
-            buffer.bP_alpha.append(EEG[0])
-            return false
-        }
-        // Filled
-        else{
+    func buffer_filled(bandPower : [Float], band : String) -> Bool{
+        switch band {
+        case "alpha":
+            // Not filled
+            if(buffer.bP_alpha.count < buffer.bP_maxSamples){
+                buffer.bP_alpha.append(meanAlpha[0])
+                return false
+            }
+        case "beta":
+            // Not filled
+            if(buffer.bP_beta.count < buffer.bP_maxSamples){
+                buffer.bP_beta.append(meanBeta[0])
+                return false
+            }
+        case "delta":
+            // Not filled
+            if(buffer.bP_delta.count < buffer.bP_maxSamples){
+                buffer.bP_delta.append(meanDelta[0])
+                return false
+            }
+        case "theta":
+            // Not filled
+            if(buffer.bP_theta.count < buffer.bP_maxSamples){
+                buffer.bP_theta.append(meanTheta[0])
+                return false
+            }
+        default:
+            print ("invalid band")
             return true
         }
+        // Filled
+        return true
     }
     
     // MARK:  EEG HANDLER
@@ -100,10 +120,10 @@ class AppDelegate: NSObject, UIApplicationDelegate{
             self.EEG[3] = message?.arguments[3] as! Float
             // Extract data into epoch if buffer filled
             if buffer_filled(EEG: EEG){
-                var data_epoch = EEG_buffer
+                var data_epoch = buffer.EEG
                 print(data_epoch)
-                EEG_buffer.removeAll()
-                while(EEG_buffer.count != 0) {}
+                buffer.EEG.removeAll()
+                while(buffer.EEG.count != 0) {}
             }
         }
     }
@@ -116,11 +136,11 @@ class AppDelegate: NSObject, UIApplicationDelegate{
             // Mean alpha
             self.meanAlpha[0] = message?.arguments[0] as! Float
             // Extract data into epoch if buffer filled
-            if buffer_filled(bandPower: meanAlpha){
-                var data_epoch = bP_buffer_alpha
+            if buffer_filled(bandPower: meanAlpha, band: "alpha"){
+                var data_epoch = buffer.bP_alpha
                 print(data_epoch)
-                bP_buffer_alpha.removeAll()
-                while(bP_buffer_alpha.count != 0) {}
+                buffer.bP_alpha.removeAll()
+                while(buffer.bP_alpha.count != 0) {}
             }
         }
     }
@@ -133,11 +153,11 @@ class AppDelegate: NSObject, UIApplicationDelegate{
             // Mean Beta
             self.meanBeta[0] = message?.arguments[0] as! Float
             // Extract data into epoch if buffer filled
-            if buffer_filled(bandPower: meanBeta){
-                var data_epoch = bP_buffer_beta
+            if buffer_filled(bandPower: meanBeta, band: "beta"){
+                var data_epoch = buffer.bP_beta
                 print(data_epoch)
-                bP_buffer_beta.removeAll()
-                while(bP_buffer_beta.count != 0) {}
+                buffer.bP_beta.removeAll()
+                while(buffer.bP_beta.count != 0) {}
             }
         }
     }
@@ -147,8 +167,15 @@ class AppDelegate: NSObject, UIApplicationDelegate{
         let message = osc_bundle?.elements[0] as? OSCMessage
         // Absolute Theta
         if(message?.addressPattern.fullPath == "/muse/elements/theta_absolute"){
-            // Mean Beta
+            // Mean Theta
             self.meanTheta[0] = message?.arguments[0] as! Float
+            // Extract data into epoch if buffer filled
+            if buffer_filled(bandPower: meanTheta, band: "theta"){
+                var data_epoch = buffer.bP_theta
+                print(data_epoch)
+                buffer.bP_theta.removeAll()
+                while(buffer.bP_theta.count != 0) {}
+            }
         }
     }
     // MARK:  DELTA POWER HANDLER
@@ -159,14 +186,17 @@ class AppDelegate: NSObject, UIApplicationDelegate{
         if(message?.addressPattern.fullPath == "/muse/elements/delta_absolute"){
             // Mean Delta
             self.meanDelta[0] = message?.arguments[0] as! Float
+            // Extract data into epoch if buffer filled
+            if buffer_filled(bandPower: meanDelta, band: "delta"){
+                var data_epoch = buffer.bP_delta
+                print(data_epoch)
+                buffer.bP_delta.removeAll()
+                while(buffer.bP_delta.count != 0) {}
+            }
         }
     }
-    
-   
-    
-
-    
 }
+
 
 // MARK: Receive data from OSC client
 extension AppDelegate: OSCUdpServerDelegate, ObservableObject {
