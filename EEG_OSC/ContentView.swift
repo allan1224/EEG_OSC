@@ -7,82 +7,115 @@
 
 import SwiftUI
 import CoreData
+import OSCKit
+import Combine
+
+
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    @EnvironmentObject private var appDelegate: AppDelegate
+    @State var isStreaming : Bool = false
+    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+    
+        ZStack{
+            // Background color
+            LinearGradient(gradient: Gradient(colors: [.purple, .black]),                  startPoint: UnitPoint.topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+            VStack{
+                Text("EEG Monitor")
+                    .font(.system(size: 40, weight: .medium, design:.default))
+                    .padding(34)
+                HStack{
+                    // Pass OSC data into UI
+                 //   MonitorView(metric: "Tp9", imageName: "brain.head.profile", data: appDelegate.EEG[0])
+                 //   MonitorView(metric: "Af7", imageName: "brain.head.profile", data: appDelegate.EEG[1])
+                 //   MonitorView(metric: "Af8", imageName: "brain.head.profile", data: appDelegate.EEG[2])
+                    MonitorView(metric: "mean alpha", imageName: "brain.head.profile", data: appDelegate.meanAlpha[0])
+                    MonitorView(metric: "mean beta", imageName: "brain.head.profile", data: appDelegate.meanBeta[0])
+
+                    
+                }
+                Spacer()
+                /*
+                VStack{
+                    Image(systemName: "waveform.path.ecg.rectangle")
+                        .renderingMode(.original)
+                        .resizable()
+                        .frame(width: 180, height: 180)
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 34)
+                }
+                 */
+                // Start stream
+                if(!isStreaming){
+                    Button{
+                        appDelegate.startListen()
+                        isStreaming = true
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        Text("Start Stream")
+                            .foregroundColor(.white)
+                            .buttonBorderShape(.roundedRectangle)
+                            .frame(width: 280, height: 50)
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .cornerRadius(40)
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                // Stop stream
+                if(isStreaming){
+                    Button{
+                        appDelegate.stopListen()
+                        isStreaming = false
+                    } label: {
+                        Text("Stop Stream")
+                            .foregroundColor(.white)
+                            .buttonBorderShape(.roundedRectangle)
+                            .frame(width: 280, height: 50)
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .cornerRadius(40)
                     }
                 }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                Spacer()
             }
         }
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+
+struct MonitorView: View {
+    var metric: String
+    var imageName: String
+    var data: Float
+    var body: some View {
+        VStack{
+            Text(metric)
+                .font(.system(size: 25, weight: .medium, design: .default))
+                .padding()
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .frame(width: 50, height: 50)
+                .foregroundColor(.white)
+                .aspectRatio(contentMode: .fit)
+            Text(data.clean)
+                .bold()
+                .font(.system(size: 25, weight: .medium, design: .default))
+                .padding()
+        }
+    }
+}
+
+extension Float {
+    var clean: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+}
+

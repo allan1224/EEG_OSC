@@ -16,6 +16,8 @@
 		9D11B9D4282B6F4500D897C5 /* EEG_OSCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9D3282B6F4500D897C5 /* EEG_OSCTests.swift */; };
 		9D11B9DE282B6F4500D897C5 /* EEG_OSCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9DD282B6F4500D897C5 /* EEG_OSCUITests.swift */; };
 		9D11B9E0282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9DF282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift */; };
+		9D1F13BB282E5E69005EF601 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1F13BA282E5E68005EF601 /* BufferType.swift */; };
+		9D9D3744282B709D001B5733 /* OSCKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D9D3743282B709D001B5733 /* OSCKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,7 @@
 		9D11B9D9282B6F4500D897C5 /* EEG_OSCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EEG_OSCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D11B9DD282B6F4500D897C5 /* EEG_OSCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEG_OSCUITests.swift; sourceTree = "<group>"; };
 		9D11B9DF282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEG_OSCUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9D1F13BA282E5E68005EF601 /* BufferType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D9D3744282B709D001B5733 /* OSCKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,7 @@
 		9D11B9B1282B6F4100D897C5 = {
 			isa = PBXGroup;
 			children = (
+				9D1F13BA282E5E68005EF601 /* BufferType.swift */,
 				9D11B9BC282B6F4100D897C5 /* EEG_OSC */,
 				9D11B9D2282B6F4500D897C5 /* EEG_OSCTests */,
 				9D11B9DC282B6F4500D897C5 /* EEG_OSCUITests */,
@@ -149,6 +154,9 @@
 			dependencies = (
 			);
 			name = EEG_OSC;
+			packageProductDependencies = (
+				9D9D3743282B709D001B5733 /* OSCKit */,
+			);
 			productName = EEG_OSC;
 			productReference = 9D11B9BA282B6F4100D897C5 /* EEG_OSC.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +229,9 @@
 				Base,
 			);
 			mainGroup = 9D11B9B1282B6F4100D897C5;
+			packageReferences = (
+				9D9D3742282B709D001B5733 /* XCRemoteSwiftPackageReference "OSCKit" */,
+			);
 			productRefGroup = 9D11B9BB282B6F4100D897C5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +278,7 @@
 				9D11B9CA282B6F4400D897C5 /* EEG_OSC.xcdatamodeld in Sources */,
 				9D11B9C0282B6F4100D897C5 /* ContentView.swift in Sources */,
 				9D11B9BE282B6F4100D897C5 /* EEG_OSCApp.swift in Sources */,
+				9D1F13BB282E5E69005EF601 /* BufferType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +603,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9D9D3742282B709D001B5733 /* XCRemoteSwiftPackageReference "OSCKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SammySmallman/OSCKit";
+			requirement = {
+				branch = 3.x;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9D9D3743282B709D001B5733 /* OSCKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D9D3742282B709D001B5733 /* XCRemoteSwiftPackageReference "OSCKit" */;
+			productName = OSCKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9D11B9C8282B6F4400D897C5 /* EEG_OSC.xcdatamodeld */ = {
