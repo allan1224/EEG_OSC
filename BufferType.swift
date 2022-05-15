@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BufferType{
+struct BufferType{
     
     // MARK: BUFFER ARRAYS
     var EEG: [[Float]] = [[],[],[],[]] // Tp9, Af7, Af8, Tp10

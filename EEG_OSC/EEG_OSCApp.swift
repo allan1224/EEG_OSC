@@ -32,8 +32,14 @@ class AppDelegate: NSObject, UIApplicationDelegate{
     @Published var meanBeta: [Float] = [-1]
     @Published var meanTheta: [Float] = [-1]
     @Published var meanDelta: [Float] = [-1]
-    
+
+    // MARK: Data Storage
     var buffer = BufferType() // buffer object
+    @Published var EEG_epoch: [[Float]] = []
+    @Published var alpha_epoch: [Float] = []
+    @Published var beta_epoch: [Float] = []
+    @Published var delta_epoch: [Float] = []
+    @Published var gamma_epoch: [Float] = []
     
     // MARK: Configuration
     private let server = OSCUdpServer(port: 5000)
@@ -55,7 +61,6 @@ class AppDelegate: NSObject, UIApplicationDelegate{
     }
     
     // MARK: Data Processing
-    
     // Checks EEG buffer status and updates accordingly
     func buffer_filled(EEG : [Float]) -> Bool{
         // Not filled
@@ -120,8 +125,8 @@ class AppDelegate: NSObject, UIApplicationDelegate{
             self.EEG[3] = message?.arguments[3] as! Float
             // Extract data into epoch if buffer filled
             if buffer_filled(EEG: EEG){
-                var data_epoch = buffer.EEG
-                print(data_epoch)
+                EEG_epoch = buffer.EEG
+                print(EEG_epoch)
                 buffer.EEG.removeAll()
                 while(buffer.EEG.count != 0) {}
             }
