@@ -10,18 +10,19 @@ import CoreData
 import OSCKit
 import Combine
 
-
-
 struct ContentView: View {
     
     @EnvironmentObject private var appDelegate: AppDelegate
     @State var isStreaming : Bool = false
     
+   //  @State var ratio_alphaBeta = (appDelegate.epoch_alpha.mean)/(appDelegate.epoch_beta.mean)
+  //   @State var ratio_thetaBeta = (appDelegate.epoch_theta.mean)/(appDelegate.epoch_beta.mean)
+    
     var body: some View {
     
         ZStack{
             // Background color
-            LinearGradient(gradient: Gradient(colors: [.purple, .black]),                  startPoint: UnitPoint.topLeading,
+            LinearGradient(gradient: Gradient(colors: [.mint, .teal]),                  startPoint: UnitPoint.topLeading,
                            endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             VStack{
@@ -30,14 +31,19 @@ struct ContentView: View {
                     .padding(34)
                 HStack{
                     // Pass OSC data into UI
-                 //   MonitorView(metric: "Tp9", imageName: "brain.head.profile", data: appDelegate.EEG[0])
-                 //   MonitorView(metric: "Af7", imageName: "brain.head.profile", data: appDelegate.EEG[1])
-                 //   MonitorView(metric: "Af8", imageName: "brain.head.profile", data: appDelegate.EEG[2])
-                    MonitorView(metric: "mean alpha", imageName: "brain.head.profile", data: appDelegate.meanAlpha[0])
-                    MonitorView(metric: "mean beta", imageName: "brain.head.profile", data: appDelegate.meanBeta[0])
+                     MonitorView(metric: "Tp9", imageName: "brain.head.profile", data: appDelegate.EEG[0])
+                    // MonitorView(metric: "Tp10", imageName: "brain.head.profile", data: appDelegate.EEG[3])
+                    // MonitorView(metric: "Af7", imageName: "brain.head.profile", data: appDelegate.EEG[1])
+                    // MonitorView(metric: "Af8", imageName: "brain.head.profile", data: appDelegate.EEG[2])
+                    // MonitorView(metric: "mean alpha", imageName: "brain.head.profile", data: appDelegate.meanAlpha[0])
+                    // MonitorView(metric: "mean beta", imageName: "brain.head.profile", data: appDelegate.meanBeta[0])
+                    // MonitorView(metric: "alpha/beta", imageName: "brain.head.profile", data: Float(appDelegate.epoch_alpha.mean)/Float((appDelegate.epoch_beta.mean)))
+                    // MonitorView(metric: "theta/beta", imageName: "brain.head.profile", data: Float(appDelegate.epoch_theta.mean)/Float((appDelegate.epoch_beta.mean)))
 
                     
                 }
+                Spacer()
+                Spacer()
                 Spacer()
                 /*
                 VStack{

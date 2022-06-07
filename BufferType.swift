@@ -20,14 +20,14 @@ struct BufferType{
     let fs = 256 // Muse data rate
     // Length of the EEG data buffer (in seconds)
     // This buffer will hold last n seconds of data and be used for processing/calculations
-    let EEG_length = 3
+    let EEG_length = 30
     var EEG_maxSamples : Int
     
     // MARK: BAND POWER DATA
     let fs_bandPower = 10 // Bandpower data rate
     // Length of the bandPower data buffer (in seconds)
     // This buffer will hold last n seconds of data and be used for processing/calculations
-    let bP_length = 3
+    let bP_length = 1
     var bP_maxSamples : Int
 
     

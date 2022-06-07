@@ -16,6 +16,9 @@
 		9D11B9D4282B6F4500D897C5 /* EEG_OSCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9D3282B6F4500D897C5 /* EEG_OSCTests.swift */; };
 		9D11B9DE282B6F4500D897C5 /* EEG_OSCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9DD282B6F4500D897C5 /* EEG_OSCUITests.swift */; };
 		9D11B9E0282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B9DF282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift */; };
+		9D1C1EC0284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C1EBF284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel */; };
+		9D1C1EC1284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C1EBF284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel */; };
+		9D1C1EC2284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C1EBF284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel */; };
 		9D1F13BB282E5E69005EF601 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1F13BA282E5E68005EF601 /* BufferType.swift */; };
 		9D9D3744282B709D001B5733 /* OSCKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D9D3743282B709D001B5733 /* OSCKit */; };
 /* End PBXBuildFile section */
@@ -50,6 +53,7 @@
 		9D11B9D9282B6F4500D897C5 /* EEG_OSCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EEG_OSCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D11B9DD282B6F4500D897C5 /* EEG_OSCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEG_OSCUITests.swift; sourceTree = "<group>"; };
 		9D11B9DF282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEG_OSCUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9D1C1EBF284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Sleep_CNN_40.mlmodel; path = "../RealTimeSleepStaging-master/ModelGeneration/code/Sleep_CNN_40.mlmodel"; sourceTree = "<group>"; };
 		9D1F13BA282E5E68005EF601 /* BufferType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +86,7 @@
 		9D11B9B1282B6F4100D897C5 = {
 			isa = PBXGroup;
 			children = (
+				9D1C1EBF284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel */,
 				9D1F13BA282E5E68005EF601 /* BufferType.swift */,
 				9D11B9BC282B6F4100D897C5 /* EEG_OSC */,
 				9D11B9D2282B6F4500D897C5 /* EEG_OSCTests */,
@@ -278,6 +283,7 @@
 				9D11B9CA282B6F4400D897C5 /* EEG_OSC.xcdatamodeld in Sources */,
 				9D11B9C0282B6F4100D897C5 /* ContentView.swift in Sources */,
 				9D11B9BE282B6F4100D897C5 /* EEG_OSCApp.swift in Sources */,
+				9D1C1EC0284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */,
 				9D1F13BB282E5E69005EF601 /* BufferType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D1C1EC1284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */,
 				9D11B9D4282B6F4500D897C5 /* EEG_OSCTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D11B9E0282B6F4500D897C5 /* EEG_OSCUITestsLaunchTests.swift in Sources */,
+				9D1C1EC2284ED4D500F3C8D3 /* Sleep_CNN_40.mlmodel in Sources */,
 				9D11B9DE282B6F4500D897C5 /* EEG_OSCUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
